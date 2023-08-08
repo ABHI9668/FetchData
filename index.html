@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="head1"></h1>
+    <h2 id="head2"></h2>
+    <h3 id="head3"></h3>
+    <img src="" alt="" id="img" />
+
+    <script>
+      const fn = async () => {
+        const head01 = document.getElementById("head1");
+        const head02 = document.getElementById("head2");
+        const head03 = document.getElementById("head3");
+        const img = document.getElementById("img");
+
+        const data = await fetch("https://www.swiggy.com/mapi/homepage/getCards?lat=28.6159783&lng=77.3772303");
+        const json = await data.json();
+     console.log(json)
+     const {restaurants}=json.data.success.cards[1].gridWidget.gridElements.infoWithStyle;
+        //console.log(json.data.success.cards[1].gridWidget.gridElements.infoWithStyle.restaurants[2].info.name);
+        // head01.innerText = json[0].id;
+        // head02.innerText = json[0].title;
+        // img.src = json[0].;
+        head01.innerText=restaurants[2].info.name
+        img.src=`${"https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/"}${restaurants[2].info.cloudinaryImageId}`;
+        img.style.height="300px";
+        img.style.width="250px"
+      };
+      fn();
+    </script>
+  </body>
+</html>
